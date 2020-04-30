@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get('/balance/:id', accountController.balance);
 
-router.put('/deposit/:id', accountController.deposit);
+router.put('/deposit/:id', accountController.validate, accountController.deposit);
 
-router.put('/withdraw/:id', accountController.withdraw);
+router.put('/withdraw/:id', accountController.validate, accountController.withdraw);
 
 export default router;

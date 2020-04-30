@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {createConnection, getRepository, getConnection, Connection} from "typeorm";
+import { createConnection } from "typeorm";
 import app from './config/custom-express'
 
 async function startApp() {
