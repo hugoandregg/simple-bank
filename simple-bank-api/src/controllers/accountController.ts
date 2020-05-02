@@ -1,8 +1,9 @@
 import { getRepository } from "typeorm";
 import { Account } from "../entity/Account";
 import { check, validationResult } from "express-validator";
+import { Request, Response } from "express";
 
-export const balance = async (req, res) => {
+export const balance = async (req: Request, res: Response) => {
   const id = req.params.id;
   await getRepository(Account)
     .findOne(id)
@@ -16,21 +17,22 @@ export const balance = async (req, res) => {
     });
 };
 
-export const deposit = async (req, res) => {
+export const deposit = async (req: Request, res: Response) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  const id = req.params.id;
+  const id = Number(req.params.id);
   const depositValue = req.body.value;
 
   const accountRepository = getRepository(Account);
   await accountRepository
-    .increment({ id: id }, "balance", depositValue)
+    .increment({ id }, "balance", depositValue)
     .then(async (result) => {
       console.log(result);
-      res.redirect(200, process.env.BASE_URL + "/account/balance/" + id);
+      res.redirect(200, `${process.env.BASE_URL}/account/balance/${id}`);
     })
     .catch((errors) => {
       console.log(errors);
@@ -38,21 +40,22 @@ export const deposit = async (req, res) => {
     });
 };
 
-export const withdraw = async (req, res) => {
+export const withdraw = async (req: Request, res: Response) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
 
-  const id = req.params.id;
+  const id = Number(req.params.id);
   const depositValue = req.body.value;
 
   const accountRepository = getRepository(Account);
   await accountRepository
-    .decrement({ id: id }, "balance", depositValue)
+    .decrement({ id }, "balance", depositValue)
     .then(async (result) => {
       console.log(result);
-      res.redirect(200, process.env.BASE_URL + "/account/balance/" + id);
+      res.redirect(200, `${process.env.BASE_URL}/account/balance/${id}`);
     })
     .catch((errors) => {
       console.log(errors);
