@@ -3,17 +3,17 @@ import * as accountController from "../controllers/accountController";
 
 const router = express.Router();
 
-router.get("/balance/:id", accountController.balance);
+router.get(":id/balance", accountController.balance);
 
 router.put(
-  "/deposit/:id",
+  ":id/deposit",
   accountController.validators,
   accountController.validate,
   accountController.deposit
 );
 
 router.put(
-  "/withdraw/:id",
+  ":id/withdraw",
   accountController.validators,
   accountController.validate,
   accountController.withdraw
