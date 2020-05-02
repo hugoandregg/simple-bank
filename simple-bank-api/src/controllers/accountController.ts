@@ -17,11 +17,11 @@ export const balance = async (req: Request, res: Response) => {
 
 export const deposit = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const depositValue = req.body.value;
+  const value = req.body.value;
 
   const accountRepository = getRepository(Account);
   await accountRepository
-    .increment({ id }, "balance", depositValue)
+    .increment({ id }, "balance", value)
     .then(async () => {
       res.redirect(200, `${process.env.BASE_URL}/account/balance/${id}`);
     })
@@ -32,11 +32,11 @@ export const deposit = async (req: Request, res: Response) => {
 
 export const withdraw = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const depositValue = req.body.value;
+  const value = req.body.value;
 
   const accountRepository = getRepository(Account);
   await accountRepository
-    .decrement({ id }, "balance", depositValue)
+    .decrement({ id }, "balance", value)
     .then(async () => {
       res.redirect(200, `${process.env.BASE_URL}/account/balance/${id}`);
     })
