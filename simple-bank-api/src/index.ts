@@ -3,8 +3,8 @@ import { createConnection } from "typeorm";
 import app from "./config/custom-express";
 
 async function startApp() {
-    const port = 3000;
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+  const port = process.env.SERVER_PORT;
+  app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 }
 
 createConnection()
