@@ -1,7 +1,7 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
-    type: 'postgres',
+  type: "postgres",
     host: process.env.TYPEORM_HOST,
     port: parseInt(process.env.TYPEORM_PORT, 10) || 5432,
     username: process.env.TYPEORM_USERNAME,
@@ -9,18 +9,12 @@ module.exports = {
     database: process.env.TYPEORM_DATABASE,
     synchronize: true,
     logging: false,
-    entities: [
-      "src/entity/**/*.ts"
-    ],
-    migrations: [
-      "src/migration/**/*.ts"
-    ],
-    subscribers: [
-      "src/subscriber/**/*.ts"
-    ],
+  entities: ["src/entity/**/*.ts"],
+  migrations: ["src/migration/**/*.ts"],
+  subscribers: ["src/subscriber/**/*.ts"],
     cli: {
       entitiesDir: "src/entity",
       migrationsDir: "src/migration",
-      subscribersDir: "src/subscriber"
-    }
-}
+    subscribersDir: "src/subscriber",
+  },
+};

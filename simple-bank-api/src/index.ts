@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import app from './config/custom-express'
+import app from "./config/custom-express";
 
 async function startApp() {
     const port = 3000;
@@ -8,6 +8,5 @@ async function startApp() {
 }
 
 createConnection()
-    .then(async connection => startApp())
-    .catch(error => console.log(error));
-
+  .then(async () => startApp())
+  .catch((error) => console.log(error));
