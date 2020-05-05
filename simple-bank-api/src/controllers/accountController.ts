@@ -1,11 +1,11 @@
-import { getRepository } from "typeorm";
-import { Account } from "../entity/Account";
+import { getCustomRepository } from "typeorm";
 import { check, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
+import { AccountRepository } from "../repository/AccountRepository";
 
 export const balance = async (req: Request, res: Response) => {
   const id = req.params.id;
-  await getRepository(Account)
+  await getCustomRepository(AccountRepository)
     .findOne(id)
     .then((result) => {
       res.status(200).json(result);
@@ -18,30 +18,44 @@ export const balance = async (req: Request, res: Response) => {
 export const deposit = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const value = req.body.value;
+  const accountRepository = getCustomRepository(AccountRepository);
 
-  const accountRepository = getRepository(Account);
   await accountRepository
-    .increment({ id }, "balance", value)
-    .then(async () => {
-      res.redirect(200, `${process.env.BASE_URL}/account/balance/${id}`);
+    .findOne(id)
+    .then((result) => {
+      accountRepository
+        .deposit(result, value)
+        .then((result) => {
+          res.status(200).json(result);
+        })
+        .catch((error) => {
+          res.status(500).json(error);
+        });
     })
-    .catch(() => {
-      res.status(404).json("Account not found");
+    .catch((error) => {
+      res.status(404).json(error);
     });
 };
 
 export const withdraw = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const value = req.body.value;
+  const accountRepository = getCustomRepository(AccountRepository);
 
-  const accountRepository = getRepository(Account);
   await accountRepository
-    .decrement({ id }, "balance", value)
-    .then(async () => {
-      res.redirect(200, `${process.env.BASE_URL}/account/balance/${id}`);
+    .findOne(id)
+    .then((result) => {
+      accountRepository
+        .withdraw(result, value)
+        .then((result) => {
+          res.status(200).json(result);
+        })
+        .catch((error) => {
+          res.status(500).json(error);
+        });
     })
-    .catch(() => {
-      res.status(404).json("Account not found");
+    .catch((error) => {
+      res.status(404).json(error);
     });
 };
 
