@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "./../config/custom-express";
+import app from "../config/custom-express";
 
 describe("Get Hello World", () => {
   it("Hello API request", async (done) => {

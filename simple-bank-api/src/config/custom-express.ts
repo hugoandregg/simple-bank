@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import accountRouter from "./../routes/account";
-import indexRouter from "./../routes/index";
+import accountRouter from "../routes/account";
+import indexRouter from "../routes/index";
 
 const app = express();
 
