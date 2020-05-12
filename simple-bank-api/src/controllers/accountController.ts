@@ -2,6 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { check, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import { AccountRepository } from "../repository/AccountRepository";
+import { checkJwt } from "../middlewares/checkJwt";
 
 export const balance = async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -70,6 +71,7 @@ export const validate = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const validators = [
+  checkJwt,
   check("value", "Value field is required").exists(),
   check("value", "Value should be greater than 0").isFloat({ gt: 0 }),
 ];
