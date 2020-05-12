@@ -5,9 +5,12 @@ import {
   Unique,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
+import { Account } from "./Account";
 
 @Entity()
 @Unique(["username"])
@@ -34,6 +37,10 @@ export class User {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne((type) => Account, (account) => account.user)
+  @JoinColumn()
+  account: Account;
 
   hashPassword() {
     this.password = bcrypt.hashSync(this.password, 8);

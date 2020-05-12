@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Account {
@@ -7,4 +14,8 @@ export class Account {
 
   @Column("double precision")
   balance: number;
+
+  @OneToOne((type) => User, (user) => user.account)
+  @JoinColumn()
+  user: User;
 }
