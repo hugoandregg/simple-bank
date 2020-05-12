@@ -5,9 +5,9 @@ import { AccountRepository } from "../repository/AccountRepository";
 import { checkJwt } from "../middlewares/checkJwt";
 
 export const balance = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const id = res.locals.jwtPayload.userId;
   await getCustomRepository(AccountRepository)
-    .findOne(id)
+    .findOneOrFail({ where: { user: id } })
     .then((result) => {
       res.status(200).json(result);
     })
@@ -17,12 +17,12 @@ export const balance = async (req: Request, res: Response) => {
 };
 
 export const deposit = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
+  const id = res.locals.jwtPayload.userId;
   const value = req.body.value;
   const accountRepository = getCustomRepository(AccountRepository);
 
   await accountRepository
-    .findOne(id)
+    .findOneOrFail(id)
     .then((result) => {
       accountRepository
         .deposit(result, value)
@@ -39,12 +39,12 @@ export const deposit = async (req: Request, res: Response) => {
 };
 
 export const withdraw = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
+  const id = res.locals.jwtPayload.userId;
   const value = req.body.value;
   const accountRepository = getCustomRepository(AccountRepository);
 
   await accountRepository
-    .findOne(id)
+    .findOneOrFail(id)
     .then((result) => {
       accountRepository
         .withdraw(result, value)

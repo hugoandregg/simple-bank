@@ -16,23 +16,28 @@ describe("Account Controller", () => {
       value: jest.fn().mockReturnValue(accountRepositoryMock),
     });
 
-    request = { params: { id: 1 } as Object } as Request;
+    request = {} as Request;
     response = {
       status: jest.fn().mockReturnValue({ json: jest.fn() }),
+      locals: { jwtPayload: { userId: 1 } },
     };
   });
 
   describe("balance", () => {
-    it("should call findOne", async () => {
-      accountRepositoryMock.findOne = jest.fn().mockResolvedValue(undefined);
+    it("should call findOneOrFail", async () => {
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockResolvedValue(undefined);
 
       await balance(request, response);
 
-      expect(accountRepositoryMock.findOne).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalled();
     });
 
     it("should respond with status 200 when there is an account with given id", async () => {
-      accountRepositoryMock.findOne = jest.fn().mockResolvedValue(undefined);
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockResolvedValue(undefined);
 
       await balance(request, response);
 
@@ -41,7 +46,9 @@ describe("Account Controller", () => {
 
     it("should respond with account data when there is an account with given id", async () => {
       const account = { id: 1, balance: 10 };
-      accountRepositoryMock.findOne = jest.fn().mockResolvedValue(account);
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockResolvedValue(account);
 
       await balance(request, response);
 
@@ -49,7 +56,9 @@ describe("Account Controller", () => {
     });
 
     it("should respond with status 404 when there is an error", async () => {
-      accountRepositoryMock.findOne = jest.fn().mockRejectedValue(new Error());
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockRejectedValue(new Error());
 
       await balance(request, response);
 
@@ -63,13 +72,15 @@ describe("Account Controller", () => {
         params: { id: 1 } as Object,
         body: { value: 2 },
       } as Request;
-      accountRepositoryMock.findOne = jest.fn().mockResolvedValue(undefined);
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockResolvedValue(undefined);
     });
 
-    it("should call findOne", async () => {
+    it("should call findOneOrFail", async () => {
       await deposit(request, response);
 
-      expect(accountRepositoryMock.findOne).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
     });
 
     it("should call deposit", async () => {
@@ -77,7 +88,7 @@ describe("Account Controller", () => {
 
       await deposit(request, response);
 
-      expect(accountRepositoryMock.findOne).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
     });
 
     it("should respond with status 200 when depositing in an account with given id", async () => {
@@ -106,7 +117,9 @@ describe("Account Controller", () => {
     });
 
     it("should respond with status 404 when there is an account with given id", async () => {
-      accountRepositoryMock.findOne = jest.fn().mockRejectedValue(new Error());
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockRejectedValue(new Error());
 
       await deposit(request, response);
 
@@ -120,13 +133,15 @@ describe("Account Controller", () => {
         params: { id: 1 } as Object,
         body: { value: 2 },
       } as Request;
-      accountRepositoryMock.findOne = jest.fn().mockResolvedValue(undefined);
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockResolvedValue(undefined);
     });
 
-    it("should call findOne", async () => {
+    it("should call findOneOrFail", async () => {
       await withdraw(request, response);
 
-      expect(accountRepositoryMock.findOne).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
     });
 
     it("should call withdraw", async () => {
@@ -134,7 +149,7 @@ describe("Account Controller", () => {
 
       await withdraw(request, response);
 
-      expect(accountRepositoryMock.findOne).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
     });
 
     it("should respond with status 200 when withdrawing in an account with given id", async () => {
@@ -163,7 +178,9 @@ describe("Account Controller", () => {
     });
 
     it("should respond with status 404 when there is an account with given id", async () => {
-      accountRepositoryMock.findOne = jest.fn().mockRejectedValue(new Error());
+      accountRepositoryMock.findOneOrFail = jest
+        .fn()
+        .mockRejectedValue(new Error());
 
       await withdraw(request, response);
 

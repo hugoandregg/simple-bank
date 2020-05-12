@@ -4,17 +4,17 @@ import { checkJwt } from "../middlewares/checkJwt";
 
 const router = Router();
 
-router.get("/:id/balance", [checkJwt], accountController.balance);
+router.get("/balance", [checkJwt], accountController.balance);
 
 router.put(
-  "/:id/deposit",
+  "/deposit",
   accountController.validators,
   accountController.validate,
   accountController.deposit
 );
 
 router.put(
-  "/:id/withdraw",
+  "/withdraw",
   accountController.validators,
   accountController.validate,
   accountController.withdraw
