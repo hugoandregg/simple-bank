@@ -1,7 +1,7 @@
-import express from "express";
+import { Router } from "express";
 import * as accountController from "../controllers/accountController";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/:id/balance", accountController.balance);
 
