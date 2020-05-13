@@ -22,7 +22,7 @@ export const deposit = async (req: Request, res: Response) => {
   const accountRepository = getCustomRepository(AccountRepository);
 
   await accountRepository
-    .findOneOrFail(id)
+    .findOneOrFail({ where: { user: id } })
     .then((result) => {
       accountRepository
         .deposit(result, value)
@@ -44,7 +44,7 @@ export const withdraw = async (req: Request, res: Response) => {
   const accountRepository = getCustomRepository(AccountRepository);
 
   await accountRepository
-    .findOneOrFail(id)
+    .findOneOrFail({ where: { user: id } })
     .then((result) => {
       accountRepository
         .withdraw(result, value)

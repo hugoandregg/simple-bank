@@ -80,7 +80,7 @@ describe("Account Controller", () => {
     it("should call findOneOrFail", async () => {
       await deposit(request, response);
 
-      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalled();
     });
 
     it("should call deposit", async () => {
@@ -88,7 +88,7 @@ describe("Account Controller", () => {
 
       await deposit(request, response);
 
-      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalled();
     });
 
     it("should respond with status 200 when depositing in an account with given id", async () => {
@@ -141,7 +141,7 @@ describe("Account Controller", () => {
     it("should call findOneOrFail", async () => {
       await withdraw(request, response);
 
-      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalled();
     });
 
     it("should call withdraw", async () => {
@@ -149,7 +149,7 @@ describe("Account Controller", () => {
 
       await withdraw(request, response);
 
-      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalledWith(1);
+      expect(accountRepositoryMock.findOneOrFail).toHaveBeenCalled();
     });
 
     it("should respond with status 200 when withdrawing in an account with given id", async () => {
