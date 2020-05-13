@@ -38,10 +38,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne((type) => Account, (account) => account.user)
-  @JoinColumn()
-  account: Account;
-
   hashPassword() {
     this.password = bcrypt.hashSync(this.password, 8);
   }

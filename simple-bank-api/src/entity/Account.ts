@@ -15,7 +15,7 @@ export class Account {
   @Column("double precision")
   balance: number;
 
-  @OneToOne((type) => User, (user) => user.account)
+  @OneToOne((type) => User)
   @JoinColumn()
   user: User;
 }
