@@ -1,9 +1,4 @@
-import {
-  EntityRepository,
-  Repository,
-  getRepository,
-  UpdateResult,
-} from "typeorm";
+import { EntityRepository, Repository, getRepository } from "typeorm";
 import { User } from "../entity/User";
 import { Account } from "../entity/Account";
 
